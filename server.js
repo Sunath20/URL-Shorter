@@ -10,10 +10,15 @@ mongoose.connect("mongodb+srv://sunath44:QenMdBCRZVMo5Uxj@cluster0.tc7v1.mongodb
 const uuid = require("uuid")
 const parser = require('body-parser')
 const cors = require("cors")
-
+const requestIp = require('request-ip');
 const app = express()
 
 app.use(parser({extended:true}))
+
+// app.use(requestIp())
+
+
+app.use(requestIp.mw())
 
 
 app.use(express.static("dist"))
@@ -94,7 +99,7 @@ app.use(async (req,res,next) => {
     let id = path.split("/")[1]
     const user = await TargetURLModel.findOne({urlPath:id})
     if(user){
-        user.ip = req.socket.remoteAddress
+        user.ip = req.clientIp
         user.visited = true
         user.save().then(e => {
             return res.status(200).redirect(user.url)
