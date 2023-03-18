@@ -15,6 +15,8 @@ const app = express()
 
 app.use(parser({extended:true}))
 
+
+app.use(express.static("/dist"))
 app.use(cors({
     allowedHeaders:"*",
     methods:"*",
@@ -53,7 +55,7 @@ app.post("/create-new-one",async (req,res) => {
     
     
         await model.save().then(e => {
-            res.status(201).send({'url':'http://localhost:8000/'+urlPath})
+            res.status(201).send({'url':'https://short-u.onrender.com/'+urlPath})
         }).catch(e =>{
             res.status(400).send({'error':"sdjs"})
         })
