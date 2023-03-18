@@ -94,7 +94,7 @@ app.use(async (req,res,next) => {
     let id = path.split("/")[1]
     const user = await TargetURLModel.findOne({urlPath:id})
     if(user){
-        user.ip = req.ip
+        user.ip = req.socket.remoteAddress
         user.visited = true
         user.save().then(e => {
             return res.status(200).redirect(user.url)
