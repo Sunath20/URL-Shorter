@@ -16,7 +16,7 @@ const app = express()
 app.use(parser({extended:true}))
 
 
-app.use(express.static("/dist"))
+app.use(express.static("dist"))
 app.use(cors({
     allowedHeaders:"*",
     methods:"*",
